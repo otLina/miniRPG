@@ -4,38 +4,38 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public NPCController NPCController;
-    public EnemyController enemyController;
-    public ItemController itemController;
-    private GameObject focalPoint;
+    //public NPCController NPCController;
+    //[SerializeField]
+    //private EnemyController enemyController;
+    [SerializeField]
+    private ItemController itemController;
+    //[SerializeField]
+    //private GameObject focalPoint;
+    [SerializeField]
+    private Animator playerAnim;
 
+    private Vector3 currentPos;
     private float speed = 10.0f;
     private float boundary = 45.0f;
     private Rigidbody playerRb;
 
-    public GameObject swordIndicator;
+    public GameObject sword;
     public GameObject[] enemies;
     public GameObject[] items;
-    public GameObject NPC1;
-    public GameObject NPC2;
+    [SerializeField]
+    private GameObject NPC1;
+    [SerializeField]
+    private GameObject NPC2;
 
-    private bool battleQuest = false;
     public bool hasSword = false;
-    private int defeatEnemy = 0;
-
-    private bool itemQuest = false;
-    private int itemCount = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
-        focalPoint = GameObject.Find("Focal Point");
 
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         items = GameObject.FindGameObjectsWithTag("Item");
-        NPC1 = GameObject.Find("NPC1");
-        NPC2 = GameObject.Find("NPC2");
 
     }
 
@@ -44,8 +44,6 @@ public class PlayerController : MonoBehaviour
     {
         MovePlayer();
         ConstrainPlayerMovement();
-
-        swordIndicator.transform.position = transform.position + new Vector3(0.8f, 0.5f, 0);
     }
 
     void MovePlayer()
@@ -53,8 +51,54 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float vertialInput = Input.GetAxis("Vertical");
 
-        transform.Translate(focalPoint.transform.right * horizontalInput * Time.deltaTime * speed);
-        transform.Translate(focalPoint.transform.forward * vertialInput * Time.deltaTime * speed);
+        //transform.Translate(horizontalInput * Time.deltaTime * speed, 0, 0, Space.World);
+        //transform.Translate(0, 0, vertialInput * Time.deltaTime * speed, Space.World);
+
+        transform.position += new Vector3(horizontalInput * speed * Time.deltaTime, 0, vertialInput * speed * Time.deltaTime);
+
+        //if(Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("left") || Input.GetKey("right"))
+        //{
+        //    playerAnim.SetBool("isRunning", true);
+        //}
+        //else
+        //{
+        //    playerAnim.SetBool("isRunning", false);
+        //}
+        if(Input.GetKey("up"))
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            //transform.position += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
+            playerAnim.SetBool("isRunning", true);
+        }
+        else if(Input.GetKey("down"))
+        {
+            transform.rotation = Quaternion.Euler(0, 180f, 0);
+            //transform.position -= new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
+            playerAnim.SetBool("isRunning", true);
+        }
+        else if (Input.GetKey("right"))
+        {
+            transform.rotation = Quaternion.Euler(0, 90f, 0);
+            //transform.position += new Vector3(0, 0, vertialInput * speed * Time.deltaTime);
+            playerAnim.SetBool("isRunning", true);
+        }
+        else if (Input.GetKey("left"))
+        {
+            transform.rotation = Quaternion.Euler(0, -90f, 0);
+            //transform.position -= new Vector3(0, 0, vertialInput * speed * Time.deltaTime);
+            playerAnim.SetBool("isRunning", true);
+        }
+        else
+        {
+            playerAnim.SetBool("isRunning", false);
+        }
+
+        Vector3 diff = transform.position - currentPos;
+        currentPos = transform.position;
+        if (diff.magnitude > 0.01f)
+        {
+            transform.rotation = Quaternion.LookRotation(diff);
+        }
     }
 
 
@@ -62,102 +106,12 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Sword"))
         {
+            Debug.Log("sword!");
             Destroy(other.gameObject);
-            swordIndicator.SetActive(true);
+            sword.SetActive(true);
             hasSword = true;
-        }
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        StartQuest(collision);
-
-        //バトルクエスト
-        if (battleQuest)
-        {
-            if(defeatEnemy == 0)
-            {
-                foreach (GameObject enemy in enemies)
-                {
-                    enemy.SetActive(true);
-                }
-                BattleQuest(collision);
-            }
-            else if (defeatEnemy != enemyController.numberOfEnemies)
-            {
-                BattleQuest(collision);
-            }
-            else if (defeatEnemy == enemyController.numberOfEnemies & collision.gameObject == NPC1)
-            {
-                FinishQuest(collision);
-            }
-        }
-
-        //アイテムクエスト
-        if (itemQuest)
-        {
-            if(itemCount == 0)
-            {
-                foreach (GameObject item in items)
-                {
-                    item.SetActive(true);
-                }
-                ItemQuest(collision);
-            }
-            else if(itemCount != itemController.numberOfItems)
-            {
-                ItemQuest(collision);
-            }
-            else if(itemCount == itemController.numberOfItems & collision.gameObject == NPC2)
-            {
-                FinishQuest(collision);
-            }
-        }
-    }
-
-    private void StartQuest(Collision collision)
-    {
-        if (collision.gameObject == NPC1)
-        {
-            NPC1.GetComponent<NPCController>().DisplayStartQuestDialog();
-            battleQuest = true;
-        }
-        else if (collision.gameObject == NPC2)
-        {
-            NPC2.GetComponent<NPCController>().DisplayStartQuestDialog();
-            itemQuest = true;
-        }
-    }
-
-    private void FinishQuest(Collision collision)
-    {
-        if (collision.gameObject == NPC1)
-        {
-            NPC1.GetComponent<NPCController>().DisplayFinishQuestDialog();
-            battleQuest = false;
-        }
-        else if (collision.gameObject == NPC2)
-        {
-            NPC2.GetComponent<NPCController>().DisplayFinishQuestDialog();
-            itemQuest = false;
-        }
-    }
-
-    private void BattleQuest(Collision col)
-    {
-        if (col.gameObject.CompareTag("Enemy") & hasSword)
-        {
-            Destroy(col.gameObject);
-            defeatEnemy++;
-        }
-    }
-
-    private void ItemQuest(Collision col)
-    {
-        if (col.gameObject.CompareTag("Item"))
-        {
-            Destroy(col.gameObject);
-            itemCount++;
+            playerAnim.SetBool("hasSword", true);
         }
     }
 

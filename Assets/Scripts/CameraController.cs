@@ -19,6 +19,6 @@ public class CameraController : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal2");
         transform.Rotate(Vector3.up, horizontalInput * speed * Time.deltaTime);
 
-        transform.position = player.transform.position;
+        transform.position = player.transform.position + new Vector3(0f, 7f, -6.5f);
     }
 }
