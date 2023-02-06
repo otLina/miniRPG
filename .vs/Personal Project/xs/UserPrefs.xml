@@ -1,46 +1,38 @@
 ﻿<Properties StartupConfiguration="{177895CB-4F47-3755-436B-A776DA2B4B54}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Enemy/EnemyFactory.cs">
     <Files>
-      <File FileName="Assets/Scripts/Enemy.cs" Line="5" Column="25" />
       <File FileName="Assets/Scripts/PlayerController.cs" Line="86" Column="10" />
-      <File FileName="Assets/Scripts/EnemyController.cs" Line="8" Column="33" />
-      <File FileName="Assets/Scripts/NPCController.cs" />
-      <File FileName="Assets/Scripts/ItemController.cs" />
+      <File FileName="Assets/Scripts/NPCController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ItemController.cs" Line="18" Column="1" />
       <File FileName="Assets/Scripts/CameraController.cs" Line="22" Column="40" />
-      <File FileName="Assets/Scripts/QuestController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Enemy/EnemyCreator.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/QuestController.cs" Line="42" Column="58" />
+      <File FileName="Assets/Scripts/Enemy/EnemyAction.cs" Line="23" Column="48" />
+      <File FileName="Assets/Scripts/Enemy/EnemyFactory.cs" Line="20" Column="6" />
+      <File FileName="Assets/Scripts/Enemy/EnemyStatus.cs" Line="6" Column="44" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Personal Project" expanded="True">
             <Node name="Assets" expanded="True">
-              <Node name="ExplosiveLLC" expanded="True">
-                <Node name="RPG Character Mecanim Animation Pack FREE" expanded="True">
-                  <Node name="Code" expanded="True">
-                    <Node name="Actions" expanded="True">
-                      <Node name="Movement" expanded="True" />
-                    </Node>
-                  </Node>
-                </Node>
-                <Node name="SuperCharacterController" expanded="True">
-                  <Node name="SuperCharacterController" expanded="True">
-                    <Node name="Core" expanded="True" />
-                  </Node>
-                </Node>
-              </Node>
               <Node name="Scripts" expanded="True">
-                <Node name="Enemy" expanded="True" />
+                <Node name="Enemy" expanded="True">
+                  <Node name="EnemyFactory.cs" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="Unity" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="5e68b771-5725-43a5-80db-5417c905180a" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

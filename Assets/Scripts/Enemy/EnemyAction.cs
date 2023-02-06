@@ -5,21 +5,20 @@ using UnityEngine;
 public class EnemyAction: MonoBehaviour
 {
     private Rigidbody rb;
-    [SerializeField]
     private GameObject player;
 
-    public float speed = 1.0f;
+    public float speed;
 
     void Start()
     {
-
+        player = GameObject.Find("RPG-Character");
     }
 
     void Update()
     {
         if (gameObject.activeSelf)
         {
-            rb = this.GetComponent<Rigidbody>();
+            rb = gameObject.GetComponent<Rigidbody>();
             Vector3 lookDirection = (player.transform.position - transform.position).normalized;
             rb.AddForce(lookDirection * speed);
         }

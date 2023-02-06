@@ -9,8 +9,6 @@ public class QuestController : MonoBehaviour
     [SerializeField]
     private EnemyFactory enemyFactory;
     [SerializeField]
-    private ItemController itemController;
-    public GameObject[] enemies;
     public GameObject[] items;
 
     [SerializeField]
@@ -29,15 +27,9 @@ public class QuestController : MonoBehaviour
     {
         //playerRb = GetComponent<Rigidbody>();
 
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        items = GameObject.FindGameObjectsWithTag("Item");
+        //enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        //items = GameObject.FindGameObjectsWithTag("Item");
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -47,19 +39,16 @@ public class QuestController : MonoBehaviour
         //バトルクエスト
         if (battleQuest)
         {
-            if (defeatEnemy == 0)
+            if (defeatEnemy == 0 && !enemyFactory.enemiesSpawned)
             {
-                foreach (GameObject enemy in enemies)
-                {
-                    enemy.SetActive(true);
-                }
+                enemyFactory.SpawnEnemies();
                 BattleQuest(collision);
             }
-            else if (defeatEnemy != enemyFactory.numberOfEnemies)
+            else if (defeatEnemy != enemyFactory.enemies.Count)
             {
                 BattleQuest(collision);
             }
-            else if (defeatEnemy == enemyFactory.numberOfEnemies & collision.gameObject == NPC1)
+            else if (defeatEnemy == enemyFactory.enemies.Count & collision.gameObject == NPC1)
             {
                 FinishQuest(collision);
             }
@@ -76,11 +65,11 @@ public class QuestController : MonoBehaviour
                 }
                 ItemQuest(collision);
             }
-            else if (itemCount != itemController.numberOfItems)
+            else if (itemCount != items.Length)
             {
                 ItemQuest(collision);
             }
-            else if (itemCount == itemController.numberOfItems & collision.gameObject == NPC2)
+            else if (itemCount == items.Length & collision.gameObject == NPC2)
             {
                 FinishQuest(collision);
             }

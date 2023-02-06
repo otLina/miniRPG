@@ -2232,9 +2232,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 858447865}
   enemyFactory: {fileID: 1641725290}
-  itemController: {fileID: 233657203}
-  enemies: []
-  items: []
+  items:
+  - {fileID: 233657198}
+  - {fileID: 412021412}
   NPC1: {fileID: 4423606640994729498}
   NPC2: {fileID: 4276706199723182494}
 --- !u!114 &858447865
@@ -2249,13 +2249,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59076600d203e4b2d8b81664d4ca5a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemController: {fileID: 233657203}
   playerAnim: {fileID: 867937351}
   sword: {fileID: 1942118498}
-  enemies: []
-  items: []
-  NPC1: {fileID: 4423606640994729498}
-  NPC2: {fileID: 4276706199723182494}
   hasSword: 0
 --- !u!136 &858447867
 CapsuleCollider:
@@ -3897,7 +3892,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 626991894c1454f5f8f7304f82befc80, type: 2}
   - {fileID: 11400000, guid: 8a95456259d0a459ba0148df12b72ebd, type: 2}
   enemyPrefab: {fileID: 4872115539856249987, guid: 5cd6a8fe4aa614a13b5dd467c47f4082, type: 3}
-  numberOfEnemies: 3
 --- !u!1 &1769561095
 GameObject:
   m_ObjectHideFlags: 0
